@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { Button } from 'antd';
 import { useForm } from 'react-hook-form';
@@ -10,18 +11,21 @@ const Login = () => {
     const dispatch = useAppDispatch();
     const { register, handleSubmit } = useForm({
         defaultValues: {
-            userId: 'A-0002',
-            password: 'admin123',
+            userId: 'A-0001',
+            password: '123456',
         },
     });
 
-    const [login, { error }] = useLoginMutation();
+    const [login ] = useLoginMutation();
 
-    const onSubmit = async (data) => {
+    const onSubmit = async (data: any) => {
         const userInfo = {
             id: data.userId,
             password: data.password,
         };
+
+        console.log(userInfo);
+        
 
         const res = await login(userInfo).unwrap();
         const user = verifyToken(res.data.accessToken);
