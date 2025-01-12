@@ -18,6 +18,7 @@ const baseQuery = fetchBaseQuery({
     },
 });
 
+// Custom query
 const baseQueryWithRefreshToken = async ( args, api, extraOptions  ) => {
 
     const result = await baseQuery( args, api, extraOptions );
