@@ -1,7 +1,7 @@
 
 
 import { Button, Layout } from 'antd';
-import { Outlet } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import { useAppDispatch } from '../../redux/hooks';
 import { logout } from '../../redux/features/auth/authSlice';
@@ -24,6 +24,7 @@ const MainLayout = () => {
             <Layout>
                 <Header>
                     <Button onClick={handleLogout}>Logout</Button>{' '}
+                    <NavLink to="/login"><Button>Log in</Button></NavLink>
                 </Header>
                 <Content style={{ margin: '24px 16px 0' }}>
                     <div
