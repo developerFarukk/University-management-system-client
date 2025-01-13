@@ -23,8 +23,8 @@ const MainLayout = () => {
             <Sidebar />
             <Layout>
                 <Header>
-                    <Button onClick={handleLogout}>Logout</Button>{' '}
-                    <NavLink to="/login"><Button>Log in</Button></NavLink>
+                    <Button onClick={handleLogout}><NavLink to="/login">Logout</NavLink></Button>{' '}
+                    {/* <NavLink to="/login"><Button>Log in</Button></NavLink> */}
                 </Header>
                 <Content style={{ margin: '24px 16px 0' }}>
                     <div
