@@ -47,7 +47,7 @@ const Sidebar = (
                 // collapsed={collapsed}
                 // onCollapse={onCollapse}
                 breakpoint="lg" collapsedWidth="0" style={{
-                    position: 'fixed',
+                    // position: 'fixed',
                     height: '100%',
                     left: 0,
                     top: 0,

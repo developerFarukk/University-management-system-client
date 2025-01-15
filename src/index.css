@@ -7,9 +7,9 @@
 
 @media (min-width: 992px) {
   
-  .main-layout {
+  /* .main-layout {
     margin-left: 200px;
-  }
+  } */
 
   .main-header {
     position: fixed;
