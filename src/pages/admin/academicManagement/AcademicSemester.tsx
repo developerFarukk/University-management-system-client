@@ -1,3 +1,4 @@
+
 import { Button, Table, TableColumnsType, TableProps } from "antd";
 import { TAcademicSemester } from "../../../types/academicManagement.type";
 import { useState } from "react";
@@ -19,11 +20,9 @@ const AcademicSemester = () => {
     const [params, setParams] = useState<TQueryParam[] | undefined>(undefined);
     const { data: semesterData, isLoading, isFetching } = useGetAllSemestersQuery(params);
 
-    // console.log({ isLoading, isFetching });
+    console.log({ isLoading, isFetching });
 
-    // console.log(semesterData?.data);
-
-    const tableData = semesterData?.data?.result.map(({ _id, name, startMonth, endMonth, year }) => ({
+    const tableData = semesterData?.data?.result.map(({ _id, name, startMonth, endMonth, year }: TAcademicSemester) => ({
         key: _id,
         name,
         startMonth,
@@ -31,7 +30,7 @@ const AcademicSemester = () => {
         year,
     }))
 
-    console.log(tableData);
+    // console.log(tableData);
 
     const columns: TableColumnsType<TTableData> = [
         {

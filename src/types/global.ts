@@ -18,7 +18,7 @@ export type TMeta = {
 };
 
 export type TResponse<T = unknown> = {
-    data?: T;
+    data?: { result: T };
     error?: TError;
     meta?: TMeta;
     success: boolean;
@@ -29,5 +29,5 @@ export type TResponseRedux<T> = TResponse<T> & BaseQueryApi;
 
 export type TQueryParam = {
     name: string;
-    value: boolean | React.Key;
+    value: string | number | boolean | React.Key;
 };
