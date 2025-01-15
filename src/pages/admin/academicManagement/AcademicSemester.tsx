@@ -86,8 +86,11 @@ const AcademicSemester = () => {
             key: 'x',
             render: () => {
                 return (
-                    <div>
-                        <Button>Update</Button>
+                    <div  >
+                        {/* <Flex justify="center" align="center">
+                            
+                        </Flex> */}
+                        <Button >Update</Button>
                     </div>
                 );
             },
