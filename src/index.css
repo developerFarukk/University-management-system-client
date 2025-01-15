@@ -6,6 +6,7 @@
 
 
 @media (min-width: 992px) {
+  
   .main-layout {
     margin-left: 200px;
   }
@@ -26,3 +27,4 @@
     padding: 24px 16px;
   }
 }
+

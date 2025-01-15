@@ -6,6 +6,7 @@ import { facultyPaths } from '../../routes/faculty.routes';
 import { studentPaths } from '../../routes/student.routes';
 import { useAppSelector } from '../../redux/hooks';
 import { selectCurrentUser } from '../../redux/features/auth/authSlice';
+// import { useState } from 'react';
 
 const { Sider } = Layout;
 
@@ -15,8 +16,12 @@ const userRole = {
     STUDENT: 'student',
 };
 
-const Sidebar = () => {
+const Sidebar = (
+    // { collapsed, onCollapse }
+) => {
     const user = useAppSelector(selectCurrentUser);
+
+    // const [collapsed, setCollapsed] = useState(false);
 
     let sidebarItems;
 
@@ -36,14 +41,18 @@ const Sidebar = () => {
     }
 
     return (
-        <div style={{ zIndex: 1000}}>
-            <Sider breakpoint="lg" collapsedWidth="0" style={{
-                position: 'fixed',
-                height: '100vh',
-                left: 0, 
-                top: 0, 
-                zIndex: 1000,
-            }}>
+        <div style={{ zIndex: 1000 }}>
+            <Sider
+                // collapsible
+                // collapsed={collapsed}
+                // onCollapse={onCollapse}
+                breakpoint="lg" collapsedWidth="0" style={{
+                    position: 'fixed',
+                    height: '100%',
+                    left: 0,
+                    top: 0,
+                    zIndex: 1000,
+                }}>
                 <div
                     style={{
                         color: 'white',
