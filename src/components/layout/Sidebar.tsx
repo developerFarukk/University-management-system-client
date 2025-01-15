@@ -36,25 +36,33 @@ const Sidebar = () => {
     }
 
     return (
-        <Sider breakpoint="lg" collapsedWidth="0">
-            <div
-                style={{
-                    color: 'white',
-                    height: '4rem',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                }}
-            >
-                <h1> UM System</h1>
-            </div>
-            <Menu
-                theme="dark"
-                mode="inline"
-                defaultSelectedKeys={['4']}
-                items={sidebarItems}
-            />
-        </Sider>
+        <div style={{ zIndex: 1000}}>
+            <Sider breakpoint="lg" collapsedWidth="0" style={{
+                position: 'fixed',
+                height: '100vh',
+                left: 0, 
+                top: 0, 
+                zIndex: 1000,
+            }}>
+                <div
+                    style={{
+                        color: 'white',
+                        height: '4rem',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                    }}
+                >
+                    <h1> UM System</h1>
+                </div>
+                <Menu
+                    theme="dark"
+                    mode="inline"
+                    defaultSelectedKeys={['4']}
+                    items={sidebarItems}
+                />
+            </Sider>
+        </div>
     );
 };
 
