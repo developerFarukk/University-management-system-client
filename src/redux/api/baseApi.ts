@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { BaseQueryApi, BaseQueryFn, createApi, DefinitionType, FetchArgs, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { RootState } from '../store';
 import { logout, setUser } from '../features/auth/authSlice';
+import { toast } from 'sonner';
 
 
 const baseQuery = fetchBaseQuery({
@@ -20,11 +22,17 @@ const baseQuery = fetchBaseQuery({
 });
 
 // Custom query
-const baseQueryWithRefreshToken: BaseQueryFn< FetchArgs, BaseQueryApi, DefinitionType > = async (args, api, extraOptions): Promise<any> => {
+const baseQueryWithRefreshToken: BaseQueryFn<FetchArgs, BaseQueryApi, DefinitionType> = async (args, api, extraOptions): Promise<any> => {
     let result = await baseQuery(args, api, extraOptions);
 
+    if (result?.error?.status === 404) {
+        // toast.error(result.error.data.message);
+        const errorMessage = (result.error.data as { message: string }).message;
+        toast.error(errorMessage);
+    }
+
     if (result?.error?.status === 401) {
-      
+
         // console.log('Sending refresh token');
 
         const res = await fetch('http://localhost:5001/api/v1/auth/refresh-token', {
@@ -35,7 +43,7 @@ const baseQueryWithRefreshToken: BaseQueryFn< FetchArgs, BaseQueryApi, Definitio
         const data = await res.json();
 
         // console.log(data);
-        
+
 
         if (data?.data?.accessToken) {
             const user = (api.getState() as RootState).auth.user;
