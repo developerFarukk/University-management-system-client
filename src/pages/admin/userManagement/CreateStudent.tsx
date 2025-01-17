@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Button, Col, Divider, Form, Input, Row } from "antd";
 import PHForm from "../../../components/form/PHForm";
 import PHInput from "../../../components/form/PHInput";
@@ -7,6 +8,8 @@ import { useAddStudentMutation } from "../../../redux/features/admin/userManagem
 import { useGetAcademicDepartmentsQuery, useGetAllSemestersQuery } from "../../../redux/features/admin/academicManagement.api";
 import { bloodGroupOptions, genderOptions } from "../../../constants/global";
 import PHDatePicker from "../../../components/form/PHDatePicker";
+import { toast } from "sonner";
+import { TResponse } from "../../../types";
 
 // const studentDummyData = {
 //     password: '123456',
@@ -92,7 +95,7 @@ const CreateStudent = () => {
 
     const { data: sData, isLoading: sIsLoading } = useGetAllSemestersQuery(undefined);
     // console.log(sData?.data);
-    
+
 
     const { data: dData, isLoading: dIsLoading } = useGetAcademicDepartmentsQuery(undefined);
 
@@ -106,18 +109,21 @@ const CreateStudent = () => {
         label: item.name,
     }));
 
-    const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+
+        const toastId = toast.loading('Creating...');
+
         const studentData = {
             password: '123456',
             student: data,
         };
 
-        console.log(studentData);
-        
+        // console.log(studentData);
+
 
         const formData = new FormData();
         // console.log(formData);
-        
+
 
         formData.append('data', JSON.stringify(studentData));
         formData.append('file', data.image);
@@ -127,8 +133,24 @@ const CreateStudent = () => {
         //! This is for development
         //! Just for checking
         console.log(Object.fromEntries(formData));
+
+
+        try {
+            const res = (await addStudent(formData)) as TResponse;
+            console.log(res);
+            if (res.error) {
+                // console.log(res.error?.data?.message);
+                
+                toast.error(res.error?.data?.message, { id: toastId });
+            } else {
+                toast.success('User Created Successfully', { id: toastId });
+            }
+        } catch (err) {
+            toast.error('Something went wrong', { id: toastId });
+        }
+
     };
-    
+
 
     return (
         <div>
