@@ -2,11 +2,86 @@ import { Button, Col, Divider, Form, Input, Row } from "antd";
 import PHForm from "../../../components/form/PHForm";
 import PHInput from "../../../components/form/PHInput";
 import PHSelect from "../../../components/form/PHSelect";
-import { Controller } from "react-hook-form";
+import { Controller, FieldValues, SubmitHandler } from "react-hook-form";
 import { useAddStudentMutation } from "../../../redux/features/admin/userManagement.api";
-import { useGetAllSemestersQuery } from "../../../redux/features/admin/academicManagement.api";
+import { useGetAcademicDepartmentsQuery, useGetAllSemestersQuery } from "../../../redux/features/admin/academicManagement.api";
+import { bloodGroupOptions, genderOptions } from "../../../constants/global";
+import PHDatePicker from "../../../components/form/PHDatePicker";
 
+// const studentDummyData = {
+//     password: '123456',
+//     student: {
+//         name: {
+//             firstName: 'I am ',
+//             middleName: 'Student',
+//             lastName: 'Number 1',
+//         },
+//         gender: 'male',
+//         dateOfBirth: '1990-01-01',
+//         bloogGroup: 'A+',
 
+//         email: 'student3@gmail.com',
+//         contactNo: '1235678',
+//         emergencyContactNo: '987-654-3210',
+//         presentAddress: '123 Main St, Cityville',
+//         permanentAddress: '456 Oak St, Townsville',
+
+//         guardian: {
+//             fatherName: 'James Doe',
+//             fatherOccupation: 'Engineer',
+//             fatherContactNo: '111-222-3333',
+//             motherName: 'Mary Doe',
+//             motherOccupation: 'Teacher',
+//             motherContactNo: '444-555-6666',
+//         },
+
+//         localGuardian: {
+//             name: 'Alice Johnson',
+//             occupation: 'Doctor',
+//             contactNo: '777-888-9999',
+//             address: '789 Pine St, Villageton',
+//         },
+
+//         admissionSemester: '65bb60ebf71fdd1add63b1c0',
+//         academicDepartment: '65b4acae3dc8d4f3ad83e416',
+//     },
+// };
+
+// Default Valus
+const studentDefaultValues = {
+    name: {
+        firstName: 'I am ',
+        middleName: 'Student',
+        lastName: 'Number 1',
+    },
+    gender: 'male',
+
+    bloogGroup: 'A+',
+
+    contactNo: '1235678',
+    emergencyContactNo: '987-654-3210',
+    presentAddress: '123 Main St, Cityville',
+    permanentAddress: '456 Oak St, Townsville',
+
+    guardian: {
+        fatherName: 'James Doe',
+        fatherOccupation: 'Engineer',
+        fatherContactNo: '111-222-3333',
+        motherName: 'Mary Doe',
+        motherOccupation: 'Teacher',
+        motherContactNo: '444-555-6666',
+    },
+
+    localGuardian: {
+        name: 'Alice Johnson',
+        occupation: 'Doctor',
+        contactNo: '777-888-9999',
+        address: '789 Pine St, Villageton',
+    },
+
+    admissionSemester: '65bb60ebf71fdd1add63b1c0',
+    academicDepartment: '65b4acae3dc8d4f3ad83e416',
+};
 
 const CreateStudent = () => {
 
@@ -14,27 +89,30 @@ const CreateStudent = () => {
 
     console.log({ data, error });
 
-    const { data: sData, isLoading: sIsLoading } =
-        useGetAllSemestersQuery(undefined);
+    const { data: sData, isLoading: sIsLoading } = useGetAllSemestersQuery(undefined);
+    // console.log(sData?.data);
+    
 
-    const { data: dData, isLoading: dIsLoading } =
-        useGetAcademicDepartmentsQuery(undefined);
+    const { data: dData, isLoading: dIsLoading } = useGetAcademicDepartmentsQuery(undefined);
 
-    const semesterOptions = sData?.data?.map((item) => ({
+    const semesterOptions = sData?.data?.result?.map((item) => ({
         value: item._id,
         label: `${item.name} ${item.year}`,
     }));
 
-    const departmentOptions = dData?.data?.map((item) => ({
+    const departmentOptions = dData?.data?.result?.map((item) => ({
         value: item._id,
         label: item.name,
     }));
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
         const studentData = {
-            password: 'student123',
+            password: '123456',
             student: data,
         };
+
+        console.log(studentData);
+        
 
         const formData = new FormData();
 
@@ -47,6 +125,7 @@ const CreateStudent = () => {
         //! Just for checking
         console.log(Object.fromEntries(formData));
     };
+    
 
     return (
         <div>

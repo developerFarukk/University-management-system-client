@@ -34,7 +34,7 @@ const CreateAcademicSemester = () => {
             endMonth: data.endMonth,
         };
 
-        console.log(semesterData);
+        // console.log(semesterData);
         
 
         try {
