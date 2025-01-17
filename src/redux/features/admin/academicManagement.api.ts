@@ -6,6 +6,7 @@ import { baseApi } from '../../api/baseApi';
 const academicManagementApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
 
+        // Get All Academic semister API
         getAllSemesters: builder.query({
             query: (args) => {
                 // console.log(args);
@@ -31,6 +32,7 @@ const academicManagementApi = baseApi.injectEndpoints({
             },
         }),
 
+        // Create Academic semister API
         addAcademicSemester: builder.mutation({
             query: (data) => ({
                 url: '/academic-semesters/create-academic-semester',
