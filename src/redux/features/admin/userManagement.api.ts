@@ -1,4 +1,5 @@
 import { TQueryParam, TResponseRedux } from "../../../types";
+import { TStudent } from "../../../types/userManagement.type";
 import { baseApi } from "../../api/baseApi";
 
 
@@ -44,5 +45,5 @@ const userManagementApi = baseApi.injectEndpoints({
 
 export const {
     useAddStudentMutation,
-    //  useGetAllStudentsQuery
+     useGetAllStudentsQuery
 } = userManagementApi;
