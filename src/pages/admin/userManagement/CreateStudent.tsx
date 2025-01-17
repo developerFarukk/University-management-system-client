@@ -56,7 +56,7 @@ const studentDefaultValues = {
     },
     gender: 'male',
 
-    bloodGroup: 'B+',
+    bloodGroup: 'A+',
 
     contactNo: '01917540405',
     emergencyContactNo: '987-654-3210',
