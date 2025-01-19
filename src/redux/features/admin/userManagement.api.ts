@@ -1,5 +1,5 @@
 import { TQueryParam, TResponseRedux } from "../../../types";
-import { TStudent } from "../../../types/userManagement.type";
+import { TFaculty, TStudent } from "../../../types/userManagement.type";
 import { baseApi } from "../../api/baseApi";
 
 
@@ -40,10 +40,37 @@ const userManagementApi = baseApi.injectEndpoints({
                 body: data,
             }),
         }),
+
+        // All Faculty Data
+        getAllFaculties: builder.query({
+            query: (args) => {
+                console.log(args);
+                const params = new URLSearchParams();
+
+                if (args) {
+                    args.forEach((item: TQueryParam) => {
+                        params.append(item.name, item.value as string);
+                    });
+                }
+
+                return {
+                    url: '/faculties',
+                    method: 'GET',
+                    params: params,
+                };
+            },
+            transformResponse: (response: TResponseRedux<TFaculty[]>) => {
+                return {
+                    data: response.data,
+                    meta: response.meta,
+                };
+            },
+        }),
     }),
 });
 
 export const {
     useAddStudentMutation,
-     useGetAllStudentsQuery
+    useGetAllStudentsQuery,
+    useGetAllFacultiesQuery,
 } = userManagementApi;
