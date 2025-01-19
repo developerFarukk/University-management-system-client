@@ -22,3 +22,8 @@ export type TCourse = {
     preRequisiteCourses: { course: string | null; isDeleted: boolean }[];
     isDeleted: boolean;
 };
+
+// export interface Tsemisterss {
+//     data: TSemester[];
+// }
+

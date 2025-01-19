@@ -4,6 +4,7 @@ import { baseApi } from '../../api/baseApi';
 
 const courseManagementApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
+
         getAllRegisteredSemesters: builder.query({
             query: (args) => {
                 const params = new URLSearchParams();
@@ -21,13 +22,15 @@ const courseManagementApi = baseApi.injectEndpoints({
                 };
             },
             providesTags: ['semester'],
-            transformResponse: (response: TResponseRedux<TSemester[]>) => {
+            transformResponse: (response: TResponseRedux< TSemester[]> ) => {
                 return {
-                    data: response.data,
+                    data: response.data?.result,
                     meta: response.meta,
                 };
             },
         }),
+
+
         addRegisteredSemester: builder.mutation({
             query: (data) => ({
                 url: '/semester-registrations/create-semester-registration',
@@ -36,6 +39,7 @@ const courseManagementApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ['semester'],
         }),
+
         updateRegisteredSemester: builder.mutation({
             query: (args) => ({
                 url: `/semester-registrations/${args.id}`,
@@ -44,6 +48,7 @@ const courseManagementApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ['semester'],
         }),
+
         getAllCourses: builder.query({
             query: (args) => {
                 const params = new URLSearchParams();
@@ -68,6 +73,7 @@ const courseManagementApi = baseApi.injectEndpoints({
                 };
             },
         }),
+
         addCourse: builder.mutation({
             query: (data) => ({
                 url: `/courses/create-course`,
@@ -76,6 +82,7 @@ const courseManagementApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ['courses'],
         }),
+
         addFaculties: builder.mutation({
             query: (args) => ({
                 url: `/courses/${args.courseId}/assign-faculties`,
