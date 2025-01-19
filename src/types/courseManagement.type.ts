@@ -23,7 +23,5 @@ export type TCourse = {
     isDeleted: boolean;
 };
 
-// export interface Tsemisterss {
-//     data: TSemester[];
-// }
+
 
