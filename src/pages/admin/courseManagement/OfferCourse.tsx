@@ -4,6 +4,7 @@ import PHInput from "../../../components/form/PHInput";
 import { useState } from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import PHSelectWithWatch from "../../../components/form/PHSelectWithWatch";
+import { useGetAcademicFacultiesQuery } from "../../../redux/features/admin/academicManagement.api";
 
 
 const OfferCourse = () => {
@@ -14,7 +15,7 @@ const OfferCourse = () => {
 
     const { data: academicFacultyData } = useGetAcademicFacultiesQuery(undefined);
 
-    const academicSemesterOptions = academicFacultyData?.data?.map((item) => ({
+    const academicSemesterOptions = academicFacultyData?.data?.result?.map((item) => ({
         value: item._id,
         label: item.name,
     }));
