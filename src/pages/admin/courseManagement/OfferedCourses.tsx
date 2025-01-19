@@ -6,6 +6,9 @@ import PHInput from "../../../components/form/PHInput";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
 import { TResponse } from "../../../types";
+import { useAddRegisteredSemesterMutation } from "../../../redux/features/admin/courseManagement";
+import { useGetAllSemestersQuery } from "../../../redux/features/admin/academicManagement.api";
+import { semesterStatusOptions } from "../../../constants/semester";
 
 
 const OfferedCourses = () => {
@@ -15,7 +18,7 @@ const OfferedCourses = () => {
         { name: 'sort', value: 'year' },
     ]);
 
-    const academicSemesterOptions = academicSemester?.data?.map((item) => ({
+    const academicSemesterOptions = academicSemester?.data?.result.map((item) => ({
         value: item._id,
         label: `${item.name} ${item.year}`,
     }));
