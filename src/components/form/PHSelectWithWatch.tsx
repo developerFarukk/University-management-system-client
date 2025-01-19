@@ -21,7 +21,7 @@ const PHSelectWithWatch = ({ label, name, options, disabled, mode, onValueChange
 
     useEffect(() => {
         onValueChange(inputValue);
-    }, [inputValue]);
+    }, [inputValue, onValueChange]);
 
 
     return (
