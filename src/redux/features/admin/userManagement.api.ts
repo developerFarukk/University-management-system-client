@@ -98,6 +98,15 @@ const userManagementApi = baseApi.injectEndpoints({
                 };
             },
         }),
+
+        // create Admin API
+        addAdmin: builder.mutation({
+            query: (data) => ({
+                url: '/users/create-admin',
+                method: 'POST',
+                body: data,
+            }),
+        }),
     }),
 });
 
@@ -106,4 +115,5 @@ export const {
     useGetAllStudentsQuery,
     useGetAllFacultiesQuery,
     useGetAllAdminsQuery,
+    useAddAdminMutation,
 } = userManagementApi;
