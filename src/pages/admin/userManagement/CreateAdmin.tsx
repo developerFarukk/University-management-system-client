@@ -1,15 +1,19 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // import { 
 //     useGetAllAdminsQuery, 
 //     useGetAllStudentsQuery
 //  } from "../../../redux/features/admin/userManagement.api";
 
-import { Button, Col, Divider, Row } from "antd";
+import { Button, Col, Divider, Form, Input, Row } from "antd";
 import PHForm from "../../../components/form/PHForm";
 import PHInput from "../../../components/form/PHInput";
 import PHSelect from "../../../components/form/PHSelect";
 import { bloodGroupOptions, genderOptions } from "../../../constants/global";
 import PHDatePicker from "../../../components/form/PHDatePicker";
-import { FieldValues, SubmitHandler } from "react-hook-form";
+import { Controller, FieldValues, SubmitHandler } from "react-hook-form";
+import { useAddAdminMutation } from "../../../redux/features/admin/userManagement.api";
+import { toast } from "sonner";
+import { TResponse } from "../../../types";
 
 // Default value
 const adminDefaultValues = {
@@ -31,48 +35,45 @@ const adminDefaultValues = {
 
 const CreateAdmin = () => {
 
+    const [addAdmin, { data, error }] = useAddAdminMutation();
+    console.log({ data, error });
+
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
 
-        console.log(data);
-        
+        const toastId = toast.loading('Creating...');
 
-        // const toastId = toast.loading('Creating...');
+        const adminData = {
+            password: import.meta.env.PASSWORD,
+            admin: data,
+        };
 
-        // const studentData = {
-        //     password: '123456',
-        //     student: data,
-        // };
+        console.log(adminData);
 
-        // // console.log(studentData);
+        const formData = new FormData();
+        // console.log(formData);
 
+        formData.append('data', JSON.stringify(adminData));
+        formData.append('file', data.image);
 
-        // const formData = new FormData();
-        // // console.log(formData);
+        addAdmin(formData);
 
-
-        // formData.append('data', JSON.stringify(studentData));
-        // formData.append('file', data.image);
-
-        // addStudent(formData);
-
-        // //! This is for development
         // //! Just for checking
-        // console.log(Object.fromEntries(formData));
+        console.log(Object.fromEntries(formData));
 
 
-        // try {
-        //     const res = (await addStudent(formData)) as TResponse;
-        //     console.log(res);
-        //     if (res.error) {
-        //         // console.log(res.error?.data?.message);
+        try {
+            const res = (await addAdmin(formData)) as TResponse;
+            console.log(res);
+            if (res.error) {
+                // console.log(res.error?.data?.message);
 
-        //         toast.error(res.error?.data?.message, { id: toastId });
-        //     } else {
-        //         toast.success('User Created Successfully', { id: toastId });
-        //     }
-        // } catch (err) {
-        //     toast.error('Something went wrong', { id: toastId });
-        // }
+                toast.error(res.error?.data?.message, { id: toastId });
+            } else {
+                toast.success('User Created Successfully', { id: toastId });
+            }
+        } catch (err) {
+            toast.error('Something went wrong', { id: toastId });
+        }
 
     };
 
@@ -119,7 +120,8 @@ const CreateAdmin = () => {
                                 />
                             </Col>
 
-                            {/* <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
+                            {/* Image */}
+                            <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
                                 <Controller
                                     name="image"
                                     render={({ field: { onChange, value, ...field } }) => (
@@ -133,7 +135,7 @@ const CreateAdmin = () => {
                                         </Form.Item>
                                     )}
                                 />
-                            </Col> */}
+                            </Col>
                         </Row>
 
                         <Divider>Contact Info.</Divider>

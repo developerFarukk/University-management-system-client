@@ -14,6 +14,7 @@ const userRole = {
     ADMIN: 'admin',
     FACULTY: 'faculty',
     STUDENT: 'student',
+    superAdmin: 'superAdmin'
 };
 
 const Sidebar = (

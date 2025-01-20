@@ -114,7 +114,7 @@ const CreateStudent = () => {
         const toastId = toast.loading('Creating...');
 
         const studentData = {
-            password: '123456',
+            password: import.meta.env.PASSWORD,
             student: data,
         };
 
@@ -140,7 +140,7 @@ const CreateStudent = () => {
             console.log(res);
             if (res.error) {
                 // console.log(res.error?.data?.message);
-                
+
                 toast.error(res.error?.data?.message, { id: toastId });
             } else {
                 toast.success('User Created Successfully', { id: toastId });
